@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.iot.gateway.dao.SensorDao">
+	
+	<select id="list"  resultType="Sensor">
+		SELECT * FROM sensors
+	</select>
+	
+	<select id="get"  parameterType="int" resultType="Sensor">
+		SELECT * FROM sensors WHERE sensor_Id=#{sensorId}
+	</select>
+
+	<insert id="insert" parameterType="Sensor">
+		INSERT INTO sensors (type, name, value, location, reg_date) 
+		values(#{type},#{name}, #{value}, #{location}, #{regDate})	
+	</insert>
+	
+	<update id="update" parameterType="Sensor">
+		UPDATE sensors SET value = #{value} 
+		WHERE sensor_Id=#{sensorId}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM sensors WHERE sensor_Id=#{sensorId}
+	</delete>
+</mapper>
+	
+	

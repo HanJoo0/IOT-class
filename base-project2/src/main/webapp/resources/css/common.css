@@ -1,0 +1,47 @@
+.menu {
+	padding: 5px 10px;
+	background : navy;
+	overflow: hidden;	
+}
+
+
+.left-menu {
+	float : left;
+}
+.right-menu {
+	float : right;
+}
+
+
+.login-form {
+	width:400px;
+	margin: 50px auto;
+}
+
+.join-form {
+	width:600px;
+	margin: 50px auto;
+}
+
+.menu a {
+	color : white;
+	font-weight: bolder;
+}
+
+
+.footer {
+	padding : 10px 50px;
+	text-align : center;
+}
+
+.thumb-pane {
+	display : inline-block;
+	width : 200px;
+	padding : 2px;
+}
+
+.error {
+	color : red;
+	font-size : 0.8em;
+}
+

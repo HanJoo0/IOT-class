@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.iot.butter.dao.MemberDao">
+	<select id="getCount" resultType="int"><![CDATA[
+		select count(*) as total from members		
+	]]></select>
+
+	<select id="selectList" resultType="Member" 
+		parameterType="Pagination"><![CDATA[
+		select user_id, name, password, cell_phone, email, address, 
+			grade, reg_date, update_date from ( 
+			select row_number() over (order by reg_date desc) as seq,  
+				user_id, name, password, cell_phone, email, address, 
+				grade, reg_date, update_date 
+			from members
+		) where seq between #{start} and #{end}
+	]]></select>
+
+	<select id="selectOne" resultType="Member" parameterType="String"><![CDATA[
+		select * from members
+		where user_id = #{userId} 		
+	]]></select>
+
+	<insert id="insert" parameterType="Member"><![CDATA[
+		insert into members 
+		(user_id, name, password, cell_phone, email, address, grade) 
+		values(#{userId}, #{name}, #{password}, #{cellPhone}, #{email}, 
+				#{address}, #{grade})
+	]]></insert>
+	
+	<update id="update" parameterType="Member"><![CDATA[
+		update members set 
+			cell_phone=#{cellPhone}, 
+			email=#{email},
+			address=#{address},
+			update_date = sysdate 
+		where user_id=#{userId} and password = #{password}
+	]]></update>
+
+	<update id="updateByAdmin" parameterType="Member"><![CDATA[
+		update members set 
+			cell_phone=#{cellPhone}, 
+			email=#{email},
+			address=#{address},
+			update_date = sysdate 
+		where user_id=#{userId}
+	]]></update>
+
+
+	<update id="changePassword" parameterType="Password"><![CDATA[
+		update members set
+		 	password = #{newPassword},
+			update_date = sysdate 
+		where user_id=#{userId} and password = #{oldPassword}
+	]]></update>
+
+	<update id="changePasswordByAdmin" parameterType="Password"><![CDATA[
+		update members set
+		 	password = #{newPassword},
+			update_date = sysdate 
+		where user_id=#{userId}
+	]]></update>
+
+
+	<delete id="delete" parameterType="String"><![CDATA[
+		delete from members
+		where user_id = #{userId}
+	]]></delete>
+
+
+
+</mapper>	
